@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sipp
 PKG_VERSION:=3.7.5
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/SIPp/sipp/releases/download/v$(PKG_VERSION)
@@ -44,10 +44,10 @@ TARGET_CFLAGS += $(TARGET_CPPFLAGS)
 
 # Use "common" options, see build.sh (we don't have gsl though)
 CMAKE_OPTIONS += \
-	-DUSE_GSL= \
+	-DUSE_GSL=0 \
 	-DUSE_PCAP=1 \
-	-DUSE_SCTP= \
-	-DUSE_SSL=
+	-DUSE_SCTP=0 \
+	-DUSE_SSL=0
 
 define Package/sipp/install
 	$(INSTALL_DIR) $(1)/usr/bin
