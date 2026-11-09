@@ -7,7 +7,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=freeswitch
 PKG_VERSION:=1.10.12
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_MAINTAINER:=
 
 PKG_SOURCE:=freeswitch-$(PKG_VERSION).-release.tar.xz
@@ -711,6 +711,12 @@ endif
 
 ifneq ($(CONFIG_PACKAGE_freeswitch-mod-pocketsphinx)$(CONFIG_PACKAGE_freeswitch-misc-grammar),)
 TARGET_CFLAGS += -DPOCKETSPHINX_MAJOR_VERSION=5
+
+# AArch64 ILP32: size_t is unsigned long (32 bits), and FreeSWITCH prints sizes with %d under
+# -Werror; same width, so keep it a warning there
+ifeq ($(CONFIG_AARCH64_ABI_ILP32),y)
+  TARGET_CFLAGS += -Wno-error=format
+endif
 
 $(eval $(call Download/files,pocketsphinx,$(FS_POCKETSPHINX_FILE),$(FS_POCKETSPHINX_URL)/5prealpha,$(FS_POCKETSPHINX_HASH)))
 $(eval $(call Download/files,sphinxbase,$(FS_SPHINXBASE_FILE),$(FS_SPHINX_URL)/5prealpha,$(FS_SPHINXBASE_HASH)))
