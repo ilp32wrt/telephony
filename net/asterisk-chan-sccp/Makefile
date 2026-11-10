@@ -9,7 +9,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=asterisk-chan-sccp
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 # Updated to v4.3.3 release
 PKG_SOURCE_URL:=https://github.com/chan-sccp/chan-sccp.git

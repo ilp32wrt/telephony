@@ -1,0 +1,49 @@
+Asterisk 21 removed the Macro application and ast_channel_macroexten/macrocontext and
+their setters. Nothing in chan-sccp calls the wrappers, so drop them and leave the
+table entries NULL.
+
+diff --git src/pbx_impl/ast116/ast116.c src/pbx_impl/ast116/ast116.c
+index fe1ee530..f7f56829 100644
+--- a/src/pbx_impl/ast116/ast116.c
++++ b/src/pbx_impl/ast116/ast116.c
+@@ -3062,10 +3062,6 @@ DECLARE_PBX_CHANNEL_STRGET(name)
+     DECLARE_PBX_CHANNEL_STRGET(linkedid)
+     DECLARE_PBX_CHANNEL_STRGET(context)
+     DECLARE_PBX_CHANNEL_STRSET(context)
+-    DECLARE_PBX_CHANNEL_STRGET(macroexten)
+-    DECLARE_PBX_CHANNEL_STRSET(macroexten)
+-    DECLARE_PBX_CHANNEL_STRGET(macrocontext)
+-    DECLARE_PBX_CHANNEL_STRSET(macrocontext)
+     DECLARE_PBX_CHANNEL_STRGET(call_forward)
+     DECLARE_PBX_CHANNEL_STRSET(call_forward)
+ 
+@@ -3533,10 +3529,10 @@ const PbxInterface iPbx = {
+ 	setChannelExten: sccp_astwrap_set_channel_exten,
+ 	getChannelContext: sccp_astwrap_get_channel_context,
+ 	setChannelContext: sccp_astwrap_set_channel_context,
+-	getChannelMacroExten: sccp_astwrap_get_channel_macroexten,
+-	setChannelMacroExten: sccp_astwrap_set_channel_macroexten,
+-	getChannelMacroContext: sccp_astwrap_get_channel_macrocontext,
+-	setChannelMacroContext: sccp_astwrap_set_channel_macrocontext,
++	getChannelMacroExten: NULL,
++	setChannelMacroExten: NULL,
++	getChannelMacroContext: NULL,
++	setChannelMacroContext: NULL,
+ 	getChannelCallForward: sccp_astwrap_get_channel_call_forward,
+ 	setChannelCallForward: sccp_astwrap_set_channel_call_forward,
+ 
+@@ -3684,10 +3680,10 @@ const PbxInterface iPbx = {
+ 	.setChannelExten = sccp_astwrap_set_channel_exten,
+ 	.getChannelContext = sccp_astwrap_get_channel_context,
+ 	.setChannelContext = sccp_astwrap_set_channel_context,
+-	.getChannelMacroExten = sccp_astwrap_get_channel_macroexten,
+-	.setChannelMacroExten = sccp_astwrap_set_channel_macroexten,
+-	.getChannelMacroContext = sccp_astwrap_get_channel_macrocontext,
+-	.setChannelMacroContext = sccp_astwrap_set_channel_macrocontext,
++	.getChannelMacroExten = NULL,
++	.setChannelMacroExten = NULL,
++	.getChannelMacroContext = NULL,
++	.setChannelMacroContext = NULL,
+ 	.getChannelCallForward = sccp_astwrap_get_channel_call_forward,
+ 	.setChannelCallForward = sccp_astwrap_set_channel_call_forward,
+ 
